@@ -1,0 +1,188 @@
+/* ROOT: warm palette (parchment, espresso, one oxblood accent), fonts and the spacing scale */
+:root {
+  --bg: #F6EFE3;
+  --surface: #FFFBF3;
+  --text: #231A17;
+  --muted: #5E504A;
+  --line: #DACBB4;
+  --accent: #7A1F2B;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --space-1: 8px;
+  --space-2: 24px;
+  --space-3: 40px;
+  --space-4: 72px;
+  --edge: 32px;
+}
+
+/* ELEMENTS: page background, body text, headings, paragraphs, lists */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 { margin: 0; font-family: var(--serif); font-weight: 600; line-height: 1.1; }
+h1 { margin-bottom: var(--space-2); font-size: clamp(3.25rem, 9vw, 6.5rem); letter-spacing: -0.02em; line-height: 1.02; }
+h2 { margin-bottom: var(--space-2); font-size: clamp(2.25rem, 5vw, 3.25rem); letter-spacing: -0.01em; }
+h3 { margin-bottom: var(--space-1); font-size: 1.5rem; }
+p { max-width: 68ch; margin: 0 0 var(--space-2); }
+ul { margin: 0 0 var(--space-1); padding-left: 1.25em; }
+li { max-width: 68ch; margin-bottom: var(--space-1); }
+
+/* LINKS: oxblood and underlined; hover changes the tone; keyboard focus is clearly visible */
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--text); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* NAVIGATION BAR: flexbox bar that stays at the top; links get an underline that slides in */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-1) var(--edge);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.nav-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-links { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.nav-links li { margin: 0; }
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-1);
+  color: var(--text);
+  text-decoration: none;
+  background: linear-gradient(var(--accent), var(--accent)) left calc(100% - 8px) / 0 2px no-repeat;
+  transition: background-size 0.3s ease, color 0.2s ease;
+}
+.nav-link:hover { color: var(--accent); background-size: 100% 2px; }
+
+/* BUTTONS: the only filled oxblood shapes; hover swaps the two colours */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.button:hover { background: var(--surface); color: var(--accent); }
+.button-secondary { background: transparent; color: var(--accent); }
+.button-secondary:hover { background: var(--accent); color: var(--bg); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
+.link-action { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-1); }
+
+/* SECTIONS: page width and the space between sections */
+main { max-width: 1080px; margin: 0 auto; padding: 0 var(--edge) var(--space-4); }
+section { padding-top: var(--space-4); }
+
+/* HERO (#hero): huge serif name, editorial sentence; the four parts fade in once on page load */
+#hero { padding-top: var(--space-4); }
+#hero .lead { max-width: 34em; font-family: var(--serif); font-weight: 500; font-size: clamp(1.35rem, 2.8vw, 1.8rem); line-height: 1.4; }
+#hero > * { animation: rise 0.8s ease-out both; }
+#hero > :nth-child(2) { animation-delay: 0.1s; }
+#hero > :nth-child(3) { animation-delay: 0.2s; }
+#hero > :nth-child(4) { animation-delay: 0.3s; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* CARDS: flat boxes in a grid; hover only changes border and tone; .card-split puts the title beside the text */
+.cards { display: grid; grid-template-columns: 1fr; gap: var(--space-2); }
+.cards-two { grid-template-columns: repeat(2, 1fr); }
+.cards-three { grid-template-columns: repeat(3, 1fr); }
+.card {
+  padding: var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.card:hover { border-color: var(--muted); background: #FFFFFF; }
+.card p { margin-bottom: var(--space-1); }
+.card :last-child { margin-bottom: 0; }
+.card-split { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-2); }
+.meta { color: var(--muted); font-size: 0.95rem; }
+.photo { margin: 0 0 var(--space-2); }
+.photo img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.photo figcaption { margin-top: var(--space-1); color: var(--muted); font-size: 0.9rem; }
+
+/* RESUME (#resume): the download link and the paper sheet */
+.download { margin-bottom: var(--space-1); }
+.download a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.sheet {
+  max-width: 794px;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.sheet h3 { font-size: 2.25rem; }
+.sheet h4 { margin: var(--space-2) 0 var(--space-1); font-size: 1.3rem; }
+.sheet p { margin-bottom: var(--space-1); }
+.entry { margin-bottom: var(--space-1); }
+.entry-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--space-1); max-width: none; }
+.date { color: var(--muted); }
+
+/* CONTACT (#contact): last section, same email buttons as the top of the page */
+#contact p { margin-bottom: var(--space-2); }
+
+/* NARROW SCREENS (under 700px): one column, smaller edges, nav no longer sticky */
+@media (max-width: 699px) {
+  :root { --edge: 16px; }
+  .nav { position: static; }
+  .cards-two, .cards-three, .card-split { grid-template-columns: 1fr; }
+  .actions .button { width: 100%; }
+  .sheet { padding: var(--space-2); }
+}
+
+/* PRINT: only the resume, one A4 page, black text on white */
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: #fff; color: #000; font-size: 9.5pt; line-height: 1.35; }
+  .nav, section:not(#resume), #resume > h2, .download { display: none; }
+  main, #resume { max-width: none; padding: 0; }
+  .sheet { max-width: none; padding: 0; border: 0; font-size: 9.5pt; background: #fff; }
+  .sheet * { color: #000; }
+  .sheet h3 { font-size: 20pt; }
+  .sheet h4 { margin: 9pt 0 3pt; font-size: 12pt; }
+  .sheet p { max-width: none; margin-bottom: 3pt; }
+  .entry { break-inside: avoid; }
+}
+
+/* REDUCED MOTION: switch off the fade-in, the slide-in underline, smooth scrolling and colour fades */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
